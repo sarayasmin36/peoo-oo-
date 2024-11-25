@@ -13,3 +13,4 @@ biblioteca.adicionarItem(revista1);
 biblioteca.registrarUsuario(usuario1);
 usuario1.emprestarItem(livro1);
 biblioteca.emprestarItem(usuario1, revista1);
+aa;
