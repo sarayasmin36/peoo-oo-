@@ -1,7 +1,7 @@
 import { Livro } from './livro';
 import { Revista } from './revista';
 import { Usuario } from './usuario';
-import { Biblioteca } from './iblioteca';
+import { Biblioteca } from './Biblioteca';
 
 const livro1 = new Livro("O Senhor dos Anéis", 1954, "J.R.R. Tolkien", 1216);
 const revista1 = new Revista("National Geographic", 2024, "NG Media", 150);
@@ -14,5 +14,3 @@ biblioteca.registrarUsuario(usuario1);
 
 usuario1.emprestarItem(livro1);
 biblioteca.emprestarItem(usuario1, revista1);
-
-aa
