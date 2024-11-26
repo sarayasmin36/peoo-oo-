@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Produtos_1 = require("./Produtos");
+var CarrinhoDeCompras_1 = require("./CarrinhoDeCompras");
+var produto1 = new Produtos_1.Produto('Camisa', 50);
+var produto2 = new Produtos_1.Produto('Calça', 100);
+var produto3 = new Produtos_1.Produto('Sapato', 150);
+var carrinho = new CarrinhoDeCompras_1.CarrinhoDeCompras();
+carrinho.adicionarProduto(produto1);
+carrinho.adicionarProduto(produto2);
+carrinho.adicionarProduto(produto3);
+var total = carrinho.calcularTotal();
+console.log("Total do carrinho: R$ ".concat(total.toFixed(2)));
