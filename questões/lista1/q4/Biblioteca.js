@@ -1,33 +1,30 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Biblioteca = void 0;
-var Biblioteca = /** @class */ (function () {
-    function Biblioteca(livros) {
-        var _this = this;
+class Biblioteca {
+    constructor(livros) {
         this.livros = [];
         if (livros) {
-            livros.forEach(function (livro) {
-                _this.livros.push(livro);
+            livros.forEach(livro => {
+                this.livros.push(livro);
             });
         }
     }
-    Biblioteca.prototype.adicionarLivro = function (livro) {
+    adicionarLivro(livro) {
         this.livros.push(livro);
         console.log("Livro adicionado.");
-    };
-    Biblioteca.prototype.adicionarLivros = function (vetor) {
-        var _this = this;
-        vetor.forEach(function (livro) {
-            _this.livros.push(livro);
+    }
+    adicionarLivros(vetor) {
+        vetor.forEach(livro => {
+            this.livros.push(livro);
         });
         console.log("Livros adicionado.");
-    };
-    Biblioteca.prototype.listarLivros = function () {
+    }
+    listarLivros() {
         console.log("LISTAGEM DOS LIVROS:");
-        this.livros.forEach(function (livro) {
+        this.livros.forEach(livro => {
             console.log("- " + livro.descricao());
         });
-    };
-    return Biblioteca;
-}());
+    }
+}
 exports.Biblioteca = Biblioteca;

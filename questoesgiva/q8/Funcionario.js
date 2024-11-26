@@ -3,11 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Funcionario = void 0;
 class Funcionario {
     constructor(nome, salario) {
-        this.nome = nome;
-        this.salario = salario;
+        this._nome = nome;
+        this._salario = salario;
     }
-    descricao() {
-        return `Funcionário: ${this.nome}, Salário: R$ ${this.salario.toFixed(2)}`;
-    }
+    get nome() { return this._nome; }
+    set nome(nome) { this._nome = nome; }
+    get salario() { return this._salario; }
 }
 exports.Funcionario = Funcionario;

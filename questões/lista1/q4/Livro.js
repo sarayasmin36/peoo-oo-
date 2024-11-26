@@ -1,24 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Livro = void 0;
-var Livro = /** @class */ (function () {
-    function Livro(titulo, autor, preco) {
+class Livro {
+    constructor(titulo, autor, preco) {
         this.titulo = titulo;
         this.autor = autor;
         this.preco = preco;
     }
-    Livro.prototype.getPreço = function () {
+    getPreço() {
         return this.preco;
-    };
-    Livro.prototype.setPreço = function (preco) {
+    }
+    setPreço(preco) {
         if (preco >= 0)
             this.preco = preco;
         else
             console.log('Livro gratuito? Não existe.');
-    };
-    Livro.prototype.descricao = function () {
-        return "Titulo: ".concat(this.titulo, ",\n Autor: ").concat(this.autor, ",\n Pre\u00E7o: ").concat(this.preco.toFixed(2), ", Formato: ").concat(this.formato);
-    };
-    return Livro;
-}());
+    }
+    descricao() {
+        return `Titulo: ${this.titulo},\n Autor: ${this.autor},\n Preço: ${this.preco.toFixed(2)}`;
+    }
+}
 exports.Livro = Livro;

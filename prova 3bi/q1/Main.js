@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Funcionario_1 = require("./Funcionario");
+const Gerente_1 = require("./Gerente");
+const Empresa_1 = require("./Empresa");
+const funcionario1 = new Funcionario_1.Funcionario('Ana Rosa', 3000, 'ajudante');
+const funcionario2 = new Funcionario_1.Funcionario('Ana', 3030, 'ajudante da ajudante');
+const funcionario3 = new Funcionario_1.Funcionario('Rosa', 3500, 'ajudante que ajuda');
+const gerente1 = new Gerente_1.Gerente('Julia', 5000, 'Gerente', 10);
+const gerente2 = new Gerente_1.Gerente('Santana', 5500, 'Gerente', 10);
+let vetor2 = [gerente1, gerente2];
+let empresa = new Empresa_1.Empresa(vetor2);
+empresa.listarFuncionarios();

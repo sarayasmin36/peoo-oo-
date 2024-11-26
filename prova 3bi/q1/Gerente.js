@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Gerente = void 0;
 const Funcionario_1 = require("./Funcionario");
 class Gerente extends Funcionario_1.Funcionario {
-    constructor(nome, salario, bonus) {
-        super(nome, salario);
+    constructor(nome, salario, cargo, bonus) {
+        super(nome, salario, cargo);
         this.bonus = bonus;
     }
     calcularSalarioTotal() {

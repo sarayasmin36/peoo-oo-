@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Conta_1 = require("./Conta");
+const ContaPoupanca_1 = require("./ContaPoupanca");
+const contaCorrente = new Conta_1.Conta(1000);
+console.log("== CONTA CORRENTE ==");
+contaCorrente.consultarSaldo();
+contaCorrente.depositar(500);
+contaCorrente.consultarSaldo();
+const contaPoupanca = new ContaPoupanca_1.ContaPoupanca(1000, 0.05);
+console.log("== CONTA POUPANÇA ==");
+contaPoupanca.consultarSaldo();
+contaPoupanca.depositar(500);
+contaPoupanca.consultarSaldo();

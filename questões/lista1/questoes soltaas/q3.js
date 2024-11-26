@@ -1,43 +1,42 @@
-var Livro = /** @class */ (function () {
-    function Livro(titulo, autor, preco) {
+"use strict";
+class Livro {
+    constructor(titulo, autor, preco) {
         this.titulo = titulo;
         this.autor = autor;
         this.preco = preco;
     }
-    Livro.prototype.getPreço = function () {
+    getPreço() {
         return this.preco;
-    };
-    Livro.prototype.setPreço = function (preco) {
+    }
+    setPreço(preco) {
         if (preco >= 0)
             this.preco = preco;
         else
             console.log('Livro gratuito? Não existe.');
-    };
-    Livro.prototype.descricao = function () {
-        return "Titulo: ".concat(this.titulo, ",\n Autor: ").concat(this.autor, ",\n Pre\u00E7o: ").concat(this.preco.toFixed(2));
-    };
-    return Livro;
-}());
-var Biblioteca = /** @class */ (function () {
-    function Biblioteca() {
+    }
+    descricao() {
+        return `Titulo: ${this.titulo},\n Autor: ${this.autor},\n Preço: ${this.preco.toFixed(2)}`;
+    }
+}
+class Biblioteca {
+    constructor() {
         this.livros = [];
     }
-    Biblioteca.prototype.adicionarLivro = function (livro) {
+    adicionarLivro(livro) {
         this.livros.push(livro);
         console.log("Livro adicionado.");
-    };
-    Biblioteca.prototype.listarLivros = function () {
+    }
+    listarLivros() {
         console.log("LISTAGEM DOS LIVROS:");
-        this.livros.forEach(function (livro) {
+        this.livros.forEach(livro => {
             console.log("- " + livro.descricao());
         });
-    };
-    return Biblioteca;
-}());
-var livro1 = new Livro("Poemas", "Emily Dickinson", 50.30);
-var livro2 = new Livro("O Senhor dos Anéis (box)", "Tolkien", 129.90);
-var livro3 = new Livro("Admirável mundo novo", "Huxley", 34.70);
-var biblio = new Biblioteca();
+    }
+}
+const livro1 = new Livro("Poemas", "Emily Dickinson", 50.30);
+let livro2 = new Livro("O Senhor dos Anéis (box)", "Tolkien", 129.90);
+let livro3 = new Livro("Admirável mundo novo", "Huxley", 34.70);
+let biblio = new Biblioteca();
 biblio.adicionarLivro(livro1);
 biblio.adicionarLivro(livro2);
 biblio.adicionarLivro(livro3);
