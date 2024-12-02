@@ -2,7 +2,7 @@ export class Filme {
     private _titulo: string;
     private _diretor: string;
     private _anoLancamento: number;
-    private avaliacoes: [];
+    private avaliacoes: number[];
 
     constructor(titulo: string, diretor: string, anoLancamento: number, avaliacoes: ) {
     this._titulo = titulo;

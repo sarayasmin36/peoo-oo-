@@ -1,6 +1,6 @@
 export class Funcionario {
     private _nome: string;
-    protected _salario: number;
+    _salario: number;
     private _cargo: string
   
     constructor(nome: string, salario: number, cargo: string) {
