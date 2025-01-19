@@ -1,9 +1,7 @@
-// Local.ts
 export class Local {
-    nome: string;
-  
-    constructor(nome: string) {
+  nome: string;
+
+  constructor(nome: string) {
       this.nome = nome;
-    }
   }
-  
+}
