@@ -22,7 +22,7 @@ interface Participante {
   
 let eventos: Evento[] = [];
 let participantes: Participante[] = [];
-let certificados: Participante[] = []; // Lista para armazenar os certificados gerados
+let certificados: Participante[] = []; 
 
 // Referências aos elementos HTML
 const eventoForm = document.getElementById('evento-form') as HTMLFormElement;
