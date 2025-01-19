@@ -1,13 +1,22 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Evento = void 0;
-var Evento = /** @class */ (function () {
-    function Evento(nome, data, local, organizador) {
-        this.nome = nome;
-        this.data = data;
-        this.local = local;
-        this.organizador = organizador;
+exports.EventoManager = void 0;
+var EventoManager = /** @class */ (function () {
+    function EventoManager() {
+        this.eventos = [];
     }
-    return Evento;
+    EventoManager.prototype.adicionarEvento = function (nome, data, local, organizador) {
+        var novoEvento = {
+            nome: nome,
+            data: data,
+            local: { nome: local },
+            organizador: { nome: organizador },
+        };
+        this.eventos.push(novoEvento);
+    };
+    EventoManager.prototype.listarEventos = function () {
+        return this.eventos;
+    };
+    return EventoManager;
 }());
-exports.Evento = Evento;
+exports.EventoManager = EventoManager;

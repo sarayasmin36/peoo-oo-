@@ -1,13 +1,14 @@
-import { Evento } from './Evento';
+import { Participante, Evento } from './interfaces';
 
-export class Participante {
-    nome: string;
-    email: string;
-    evento: Evento;
+export class ParticipanteManager {
+    participantes: Participante[] = [];
 
-    constructor(nome: string, email: string, evento: Evento) {
-        this.nome = nome;
-        this.email = email;
-        this.evento = evento;
+    inscreverParticipante(nome: string, email: string, evento: Evento): void {
+        const participante: Participante = { nome, email, evento };
+        this.participantes.push(participante);
+    }
+
+    listarParticipantes(): Participante[] {
+        return this.participantes;
     }
 }

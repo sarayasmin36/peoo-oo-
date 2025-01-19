@@ -1,12 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Participante = void 0;
-var Participante = /** @class */ (function () {
-    function Participante(nome, email, evento) {
-        this.nome = nome;
-        this.email = email;
-        this.evento = evento;
+exports.ParticipanteManager = void 0;
+var ParticipanteManager = /** @class */ (function () {
+    function ParticipanteManager() {
+        this.participantes = [];
     }
-    return Participante;
+    ParticipanteManager.prototype.inscreverParticipante = function (nome, email, evento) {
+        var participante = { nome: nome, email: email, evento: evento };
+        this.participantes.push(participante);
+    };
+    ParticipanteManager.prototype.listarParticipantes = function () {
+        return this.participantes;
+    };
+    return ParticipanteManager;
 }());
-exports.Participante = Participante;
+exports.ParticipanteManager = ParticipanteManager;
