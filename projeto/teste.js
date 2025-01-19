@@ -1,11 +1,13 @@
 var eventos = [];
 var participantes = [];
+var certificados = []; // Lista para armazenar os certificados gerados
 // Referências aos elementos HTML
 var eventoForm = document.getElementById('evento-form');
 var participanteForm = document.getElementById('participante-form');
 var eventosTabela = document.getElementById('eventos-tabela');
 var participanteTabela = document.getElementById('participante-tabela');
 var eventoSelecionado = document.getElementById('evento-selecionado');
+var certificadoTabela = document.getElementById('certificado-tabela');
 // Função para adicionar um novo evento
 function adicionarEvento(event) {
     event.preventDefault();
@@ -69,7 +71,32 @@ function atualizarParticipantes() {
     tbody.innerHTML = '';
     participantes.forEach(function (participante) {
         var tr = document.createElement('tr');
-        tr.innerHTML = "\n        <td>".concat(participante.nome, "</td>\n        <td>").concat(participante.email, "</td>\n        <td>").concat(participante.evento.nome, "</td>\n      ");
+        tr.innerHTML = "\n        <td>".concat(participante.nome, "</td>\n        <td>").concat(participante.email, "</td>\n        <td>").concat(participante.evento.nome, "</td>\n        <td><button onclick=\"gerarCertificado('").concat(participante.nome, "', '").concat(participante.email, "', '").concat(participante.evento.nome, "', '").concat(participante.evento.organizador.nome, "', '").concat(participante.evento.data, "', '").concat(participante.evento.local.nome, "')\">Gerar Certificado</button></td>\n      ");
+        tbody.appendChild(tr);
+    });
+}
+// Função para gerar o certificado
+function gerarCertificado(nome, email, eventoNome, organizadorNome, data, local) {
+    var certificado = {
+        nome: nome,
+        email: email,
+        evento: {
+            nome: eventoNome,
+            data: data,
+            local: { nome: local },
+            organizador: { nome: organizadorNome }
+        }
+    };
+    certificados.push(certificado);
+    atualizarCertificados();
+}
+// Função para exibir os certificados
+function atualizarCertificados() {
+    var tbody = certificadoTabela.querySelector('tbody');
+    tbody.innerHTML = '';
+    certificados.forEach(function (certificado) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = "\n        <td>".concat(certificado.nome, "</td>\n        <td>").concat(certificado.email, "</td>\n        <td>").concat(certificado.evento.nome, "</td>\n        <td>").concat(certificado.evento.organizador.nome, "</td>\n        <td>").concat(certificado.evento.data, "</td>\n        <td>").concat(certificado.evento.local.nome, "</td>\n      ");
         tbody.appendChild(tr);
     });
 }

@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LocalClass = void 0;
-var LocalClass = /** @class */ (function () {
-    function LocalClass(nome) {
+exports.Local = void 0;
+// Local.ts
+var Local = /** @class */ (function () {
+    function Local(nome) {
         this.nome = nome;
     }
-    return LocalClass;
+    return Local;
 }());
-exports.LocalClass = LocalClass;
+exports.Local = Local;

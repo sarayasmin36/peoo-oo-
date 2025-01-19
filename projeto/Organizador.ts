@@ -1,4 +1,5 @@
-export class OrganizadorClass {
+// Organizador.ts
+export class Organizador {
   nome: string;
 
   constructor(nome: string) {

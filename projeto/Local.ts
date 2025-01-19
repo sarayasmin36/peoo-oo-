@@ -1,4 +1,5 @@
-export class LocalClass {
+// Local.ts
+export class Local {
     nome: string;
   
     constructor(nome: string) {

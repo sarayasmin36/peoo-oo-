@@ -1,13 +1,14 @@
-import { LocalClass } from './Local';
-import { OrganizadorClass } from './Organizador';
+// Evento.ts
+import { Local } from './Local';
+import { Organizador } from './Organizador';
 
-export class EventoClass {
+export class Evento {
   nome: string;
   data: string;
-  local: LocalClass;
-  organizador: OrganizadorClass;
+  local: Local;
+  organizador: Organizador;
 
-  constructor(nome: string, data: string, local: LocalClass, organizador: OrganizadorClass) {
+  constructor(nome: string, data: string, local: Local, organizador: Organizador) {
     this.nome = nome;
     this.data = data;
     this.local = local;

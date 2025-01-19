@@ -1,11 +1,8 @@
-import { EventoClass } from './Evento';
-import { LocalClass } from './Local';
-import { OrganizadorClass } from './Organizador';
-import { ParticipanteClass } from './PArticipante';
-
-// Listas globais
-let eventos: EventoClass[] = [];
-let participantes: ParticipanteClass[] = [];
+// main.ts
+import { Evento } from './Evento';
+import { Local } from './Local';
+import { Organizador } from './Organizador';
+import { Participante } from './PArticipante';
 
 // Referências aos elementos HTML
 const eventoForm = document.getElementById('evento-form') as HTMLFormElement;
@@ -14,24 +11,25 @@ const eventosTabela = document.getElementById('eventos-tabela') as HTMLTableElem
 const participanteTabela = document.getElementById('participante-tabela') as HTMLTableElement;
 const eventoSelecionado = document.getElementById('evento-selecionado') as HTMLSelectElement;
 
+let eventos: Evento[] = [];
+let participantes: Participante[] = [];
+
 // Função para adicionar um novo evento
 function adicionarEvento(event: Event) {
-  event.preventDefault(); // Previne o comportamento padrão de submit
+  event.preventDefault();
 
   const nomeEvento = (document.getElementById('evento-nome') as HTMLInputElement).value;
   const organizadorNome = (document.getElementById('evento-organizador') as HTMLInputElement).value;
   const eventoData = (document.getElementById('evento-data') as HTMLInputElement).value;
   const eventoLocal = (document.getElementById('evento-local') as HTMLInputElement).value;
 
-  // Criação de um novo evento
-  const novoEvento = new EventoClass(
+  const novoEvento = new Evento(
     nomeEvento,
     eventoData,
-    new LocalClass(eventoLocal),
-    new OrganizadorClass(organizadorNome)
+    new Local(eventoLocal),
+    new Organizador(organizadorNome)
   );
 
-  // Adiciona o evento à lista e atualiza a tabela
   eventos.push(novoEvento);
   atualizarEventos();
   atualizarEventosNoSelect();
@@ -68,7 +66,7 @@ function atualizarEventosNoSelect() {
 
 // Função para inscrever um participante
 function inscreverParticipante(event: Event) {
-  event.preventDefault(); // Previne o comportamento padrão de submit
+  event.preventDefault();
 
   const nomeParticipante = (document.getElementById('participante-nome') as HTMLInputElement).value;
   const emailParticipante = (document.getElementById('participante-email') as HTMLInputElement).value;
@@ -77,7 +75,7 @@ function inscreverParticipante(event: Event) {
   const eventoInscrito = eventos.find(evento => evento.nome === eventoEscolhido);
 
   if (eventoInscrito) {
-    const participante = new ParticipanteClass(nomeParticipante, emailParticipante, eventoInscrito);
+    const participante = new Participante(nomeParticipante, emailParticipante, eventoInscrito);
     participantes.push(participante);
     atualizarParticipantes();
   } else {

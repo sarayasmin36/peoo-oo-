@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EventoClass = void 0;
-var EventoClass = /** @class */ (function () {
-    function EventoClass(nome, data, local, organizador) {
+exports.Evento = void 0;
+var Evento = /** @class */ (function () {
+    function Evento(nome, data, local, organizador) {
         this.nome = nome;
         this.data = data;
         this.local = local;
         this.organizador = organizador;
     }
-    return EventoClass;
+    return Evento;
 }());
-exports.EventoClass = EventoClass;
+exports.Evento = Evento;

@@ -1,28 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+// main.ts
 var Evento_1 = require("./Evento");
 var Local_1 = require("./Local");
 var Organizador_1 = require("./Organizador");
 var PArticipante_1 = require("./PArticipante");
-// Listas globais
-var eventos = [];
-var participantes = [];
 // Referências aos elementos HTML
 var eventoForm = document.getElementById('evento-form');
 var participanteForm = document.getElementById('participante-form');
 var eventosTabela = document.getElementById('eventos-tabela');
 var participanteTabela = document.getElementById('participante-tabela');
 var eventoSelecionado = document.getElementById('evento-selecionado');
+var eventos = [];
+var participantes = [];
 // Função para adicionar um novo evento
 function adicionarEvento(event) {
-    event.preventDefault(); // Previne o comportamento padrão de submit
+    event.preventDefault();
     var nomeEvento = document.getElementById('evento-nome').value;
     var organizadorNome = document.getElementById('evento-organizador').value;
     var eventoData = document.getElementById('evento-data').value;
     var eventoLocal = document.getElementById('evento-local').value;
-    // Criação de um novo evento
-    var novoEvento = new Evento_1.EventoClass(nomeEvento, eventoData, new Local_1.LocalClass(eventoLocal), new Organizador_1.OrganizadorClass(organizadorNome));
-    // Adiciona o evento à lista e atualiza a tabela
+    var novoEvento = new Evento_1.Evento(nomeEvento, eventoData, new Local_1.Local(eventoLocal), new Organizador_1.Organizador(organizadorNome));
     eventos.push(novoEvento);
     atualizarEventos();
     atualizarEventosNoSelect();
@@ -49,13 +47,13 @@ function atualizarEventosNoSelect() {
 }
 // Função para inscrever um participante
 function inscreverParticipante(event) {
-    event.preventDefault(); // Previne o comportamento padrão de submit
+    event.preventDefault();
     var nomeParticipante = document.getElementById('participante-nome').value;
     var emailParticipante = document.getElementById('participante-email').value;
     var eventoEscolhido = eventoSelecionado.value;
     var eventoInscrito = eventos.find(function (evento) { return evento.nome === eventoEscolhido; });
     if (eventoInscrito) {
-        var participante = new PArticipante_1.ParticipanteClass(nomeParticipante, emailParticipante, eventoInscrito);
+        var participante = new PArticipante_1.Participante(nomeParticipante, emailParticipante, eventoInscrito);
         participantes.push(participante);
         atualizarParticipantes();
     }

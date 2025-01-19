@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OrganizadorClass = void 0;
-var OrganizadorClass = /** @class */ (function () {
-    function OrganizadorClass(nome) {
+exports.Organizador = void 0;
+// Organizador.ts
+var Organizador = /** @class */ (function () {
+    function Organizador(nome) {
         this.nome = nome;
     }
-    return OrganizadorClass;
+    return Organizador;
 }());
-exports.OrganizadorClass = OrganizadorClass;
+exports.Organizador = Organizador;
