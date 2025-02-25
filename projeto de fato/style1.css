@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f9f9f9;
-  background-image: url('images.jpg');
+  background-image: url('');
   background-size: cover;  /* Faz a imagem cobrir toda a tela */
   background-position: center;  /* Centraliza a imagem */
   background-attachment: fixed;  /* A imagem fica fixa quando rolar a página */
@@ -32,7 +32,7 @@ section {
 h1 {
   margin: 5px;
   margin-bottom: 5px;
-  font-size: 3.5;
+  font-size: 70px;
   text-align: center;
   padding-top: 200px;
   padding-left: 30px;
@@ -42,7 +42,7 @@ h1 {
 h2 {
   margin: 5px;
   margin-bottom: 5px;
-  font-size: 3.5;
+  font-size: 40px;
   text-align: center;
   padding-top: 150x;
   padding-left: 30px;
@@ -61,6 +61,14 @@ input, select, button {
   margin-bottom: 10px;
   border: 1px solid #ccc;
 }
+.container {
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  height: 30vh; /* Faz o container ocupar 100% da altura do body */
+  display: flex; 
+  gap: 20px; /* Espaço entre os botões */
+}
+
 
 button {
   background-color: #f572cedc;
@@ -68,7 +76,11 @@ button {
   font-family: monospace;
   font-size: 1rem;
   cursor: pointer;
-  border: none;
+  border-radius: 5px; 
+  margin-right: 90px;
+  padding: 10px 20px; 
+  border: none; 
+  text-align: center;
 }
 
 button:hover {
