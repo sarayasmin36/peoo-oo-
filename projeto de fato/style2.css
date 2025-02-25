@@ -66,7 +66,7 @@ body {
     margin-left: 180px;
   }
   
-  input {
+  input, select, button {
     padding: 8px; /* Isso adiciona um espaço dentro do campo de input */
     border: 1px solid #000; /* Apenas para ilustrar a borda do input */
     width: 1500px;
@@ -93,13 +93,9 @@ body {
     cursor: pointer;
     border-radius: 5px; 
     margin-right: 200px;
+    padding: 10px 20px; 
     border: none; 
     text-align: center;
-    padding: 8px; /* Isso adiciona um espaço dentro do campo de input */
-    border: 1px solid #000; /* Apenas para ilustrar a borda do input */
-    width: 1000;
-    margin-bottom: 10px;
-    margin-left: 180px;
   }
 
   .btn-primary {
