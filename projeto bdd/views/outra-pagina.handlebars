@@ -111,6 +111,38 @@
   <body>
     <h1>Participe</h1>
     <h2>Participe de eventos!</h2>
+    <h1>Eventos disponíveis:</h1>
+    <body>
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nome do Evento</th>
+          <th scope="col">Organizador</th>
+          <th scope="col">Data</th>
+          <th scope="col">Lugar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each eventos}}
+          <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.nome}}</td>
+            <td>{{this.organizador}}</td>
+            <td>{{this.datas}}</td>
+            <td>{{this.lugar}}</td>
+          </tr>
+        {{else}}
+          <tr>
+            <td colspan="5" class="text-center">Nenhum evento encontrado</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <h2>Inscrever Participante</h2>
       <form id="participante-form">
@@ -120,12 +152,15 @@
         <label for="participante-email">E-mail:</label>
         <input type="email" id="participante-email" required>
 
-        <label style="width: 1169px;" for="evento-selecionado">Evento:</label>
-        <select id="evento-selecionado" style="width: 1169px;" required>
-        <option value="" disabled selected>Selecione um evento:</option>
+        <!-- SELECT -->
+        <form action="/participar" method="POST">
+        <label style="width: 1169px;" for="evento-selecionado">Escolha um evento:</label>
+        <select id="evento-selecionado" name="evento_id" required>
+        <option value="" disabled selected>Selecione um evento</option>
+        {{#each eventos}}  <!-- Verifique se há eventos para iterar -->
+        <option value="{{this.id}}">{{this.nome}} - {{this.organizador}} -- {{this.datas}}</option>
+        {{/each}}
         </select>
-
-
         <button type="submit">Inscrever</button>
       </form>
     </section>
