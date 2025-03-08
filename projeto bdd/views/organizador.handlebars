@@ -1,0 +1,139 @@
+<style>
+  body {
+    font-family: monospace;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    background-image: url('');
+    background-size: cover;  /* Faz a imagem cobrir toda a tela */
+    background-position: center;  /* Centraliza a imagem */
+    background-attachment: fixed;  /* A imagem fica fixa quando rolar a página */
+  }
+
+  header {
+    background-color: #f572cedc;
+    color: white;
+    text-align: left;
+    padding: 2px;
+  }
+
+  main {
+    max-width: 1000px;
+    margin: auto;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+  }
+
+  section {
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    margin: 5px;
+    margin-bottom: -10px;
+    font-size: 70px;
+    text-align: center;
+    padding-top: 80px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  h2 {
+    margin: 5px;
+    margin-bottom: 5px;
+    font-size: 40px;
+    text-align: center;
+    padding-top: 70x;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  h5 {
+    margin: 5px;
+    margin-bottom: 5px;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 100x;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    margin-left: 180px;
+  }
+
+  input, select, button {
+    padding: 8px; /* Isso adiciona um espaço dentro do campo de input */
+    border: 1px solid #000; /* Apenas para ilustrar a borda do input */
+    width: 1150px;
+    margin-bottom: 10px;
+    margin-left: 180px;
+  }
+
+  .container {
+    flex-direction: column; /* Organiza os itens verticalmente */
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    height: 100vh; /* Ocupa toda a altura da tela */
+    margin: 0; /* Remove margens padrão */
+    gap: 20px; /* Espaço entre os botões */
+  }
+
+  button {
+    background-color: #f572cedc;
+    color: white;
+    font-family: monospace;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 100px;
+    padding: 10px 20px;
+    border: none;
+    text-align: center;
+    width: 1169px;  /* Define a largura do botão igual ao input */
+  }
+
+  button:hover {
+    background-color: #f572ce65;
+  }
+</style>
+
+<body>
+  <header>
+    <h3> &#10036; Eventario </h3>
+  </header>
+
+  <body>
+    <h1>Organize</h1>
+    <h2>Cadastre o seu evento!</h2>
+
+    <section>
+      <h5>Adicionar Evento</h5>
+      <form id="evento-form" action="/cadastrar" method="POST">
+        <label for="evento-nome">Nome do Evento:</label>
+        <input type="text" name="nome" id="evento-nome"required>
+    
+        <label for="organizador-nome">Organizador:</label>
+        <input type="text" name="organizador" id="evento-organizador"required>
+    
+        <label for="evento-data">Data:</label>
+        <input type="date" name="data" id="evento-data" required>
+    
+        <label for="evento-local">Local:</label>
+        <input type="text" name="local" id="evento-local"required>
+        <button type="submit">Adicionar Evento</button>
+      </form>
+    </section>
+
+    <div class="container">
+      <a href="/">
+        <button>Clique aqui para voltar a página inicial</button>
+      </a>
+    </div>
+  </body>
+</html>

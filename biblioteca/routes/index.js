@@ -1,5 +1,6 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+const db = require('../../projeto bd/utils/db');
+let router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -56,5 +57,13 @@ router.delete('/autores/exclui/:id', function(req, res) {
   res.json(autores);
 });
 
+router.get('/autores/listar', function(req, res) {
+  db.query('select * from TbAutor', [], function(erro, listagem){
+    if (erro){
+      res.send(erro);
+    }
+    res.send(listagem);
+  });
+});
 
 module.exports = router;
