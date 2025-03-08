@@ -35,10 +35,24 @@ app.get('/', function (req, res) {
   res.render('formulario'); // renderiza o formulário
 });
 
+app.get('/outra-pagina', function (req, res) {
+  const sql = 'SELECT * FROM eventos';
+  conexao.query(sql, function (erro, eventos) {
+    if (erro) {
+      console.error('Erro ao buscar eventos: ', erro);
+      return res.status(500).send('Erro ao carregar eventos');
+    }
+    console.log('Eventos encontrados:', eventos);  // Adicione este log
+    res.render('outra-pagina', { eventos: eventos });
+  });
+});
+
+
 // Rota para exibir a página do organizador
 app.get('/organizador', function (req, res) {
   res.render('organizador');
 });
+
 
 // Rota para cadastrar o evento
 app.post('/cadastrar', function (req, res) {
@@ -59,6 +73,8 @@ conexao.query(sql, [nome, organizador, data, lugar], function (erro, resultado) 
   }
 });
 });
+
+
 
 app.listen(3000, () => {
   console.log('Servidor rodando na porta 3000');
