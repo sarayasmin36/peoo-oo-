@@ -20,7 +20,7 @@ const conexao = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'projetobd',
+  database: 'projeto',
 });
 
 conexao.connect((erro) => {
@@ -45,19 +45,19 @@ app.post('/cadastrar', function (req, res) {
   let nome = req.body.nome
   let organizador = req.body.organizador
   let data = req.body.data
-  let local = req.body.local
+  let lugar = req.body.lugar
 
   // Aqui você pode inserir os dados no banco de dados
-  const sql = `INSERT INTO eventos (nome, organizador, data, local) VALUES ('${nome}', '${organizador}', ${data}, '${local}')`;
-  conexao.query(sql, function(erro, resultado) => {
-    if (erro) {
-      console.log(erro);
-      res.status(500).send('Erro ao cadastrar o evento');
-    } else {
-      console.log('Evento cadastrado com sucesso:', resultado);
-      res.redirect('/'); // Redireciona para a página inicial após o cadastro
-    }
-  });
+  const sql = 'INSERT INTO eventos (nome, organizador, datas, lugar) VALUES (?, ?, ?, ?)';
+conexao.query(sql, [nome, organizador, data, lugar], function (erro, resultado) {
+  if (erro) {
+    console.error('Erro ao inserir evento: ', erro);
+    res.status(500).send('Erro ao cadastrar evento');
+  } else {
+    console.log('Evento cadastrado com sucesso!', resultado);
+    res.redirect('/');
+  }
+});
 });
 
 app.listen(3000, () => {
