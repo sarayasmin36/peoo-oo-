@@ -26,6 +26,41 @@
     border: 1px solid #ddd;
   }
 
+  table {
+    width: 80%;
+    margin: 10px auto 0; /* Reduzi a margem superior */
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  th, td {
+    padding: 12px 15px;
+    text-align: center;
+  }
+
+  thead {
+    background-color: #f572cedc;
+    color: white;
+    font-weight: bold;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #ddd;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tbody tr:hover {
+    background-color: #f572ce25;
+    cursor: pointer;
+  }
+
+
   section {
     margin-bottom: 20px;
   }
@@ -43,6 +78,7 @@
   h2 {
     margin: 5px;
     margin-bottom: 5px;
+    margin-top: 40px;
     font-size: 40px;
     text-align: center;
     padding-top: 70x;
@@ -75,13 +111,25 @@
     margin-left: 180px;
   }
 
-  .container {
+.container2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza os elementos */
+    justify-content: center;
+    margin-top: -10px; /* Aproxima os elementos */
+  }
+
+  .container1 {
     flex-direction: column; /* Organiza os itens verticalmente */
     justify-content: center; /* Centraliza verticalmente */
     align-items: center; /* Centraliza horizontalmente */
     height: 100vh; /* Ocupa toda a altura da tela */
     margin: 0; /* Remove margens padrão */
     gap: 20px; /* Espaço entre os botões */
+  }
+
+    #participante-form {
+    margin-top: 10px; /* Reduzi a margem superior do formulário */
   }
 
   button {
@@ -111,9 +159,9 @@
   <body>
     <h1>Participe</h1>
     <h2>Participe de eventos!</h2>
-    <h1>Eventos disponíveis:</h1>
+    <h5>Eventos disponíveis:</h5>
     <body>
-  <div class="container">
+  <div class="container2">
     <table class="table table-striped">
       <thead>
         <tr>
@@ -127,10 +175,10 @@
       <tbody>
         {{#each eventos}}
           <tr>
-            <td>{{this.id}}</td>
+            <td>{{this.codigo}}</td>
             <td>{{this.nome}}</td>
             <td>{{this.organizador}}</td>
-            <td>{{this.datas}}</td>
+            <td>{{datas_formatada}}</td>
             <td>{{this.lugar}}</td>
           </tr>
         {{else}}
@@ -145,30 +193,63 @@
   <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <h2>Inscrever Participante</h2>
-      <form id="participante-form">
-        <label for="participante-nome">Nome do Participante:</label>
-        <input type="text" id="participante-nome" placeholder="Insira um nome completo" required>
+      <form id="participante-form" action="/participar" method="POST">
+    <label for="participante-nome">Nome do Participante:</label>
+    <input type="text" name="nome" id="participante-nome" placeholder="Insira um nome completo" required>
 
-        <label for="participante-email">E-mail:</label>
-        <input type="email" id="participante-email" required>
+    <label for="participante-email">E-mail:</label>
+    <input type="email" name="email" id="participante-email" required>
 
-        <!-- SELECT -->
-        <form action="/participar" method="POST">
-        <label style="width: 1169px;" for="evento-selecionado">Escolha um evento:</label>
-        <select id="evento-selecionado" name="evento_id" required>
-        <option value="" disabled selected>Selecione um evento</option>
-        {{#each eventos}}  <!-- Verifique se há eventos para iterar -->
-        <option value="{{this.id}}">{{this.nome}} - {{this.organizador}} -- {{this.datas}}</option>
-        {{/each}}
-        </select>
-        <button type="submit">Inscrever</button>
-      </form>
+    <label for="evento-selecionado">Escolha um evento:</label>
+    <select style="width: 1169px;"  id="evento-selecionado" name="evento_id" required>
+      <option value="" disabled selected>Selecione um evento</option>
+      {{#each eventos}}
+        <option value="{{this.codigo}}">{{this.nome}}</option>
+      {{/each}}
+    </select>
+
+    <button type="submit">Inscrever</button>
+    </form>
+
     </section>
 
-    <div class="container">
+    <div class="container1">
+      <a href="/participantes">
+        <button>Clique aqui para ver lista de participantes </button>
+      </a>
+
       <a href="/">
         <button>Clique aqui para voltar a página inicial</button>
       </a>
     </div>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("participante-form").addEventListener("submit", function (event) {
+    event.preventDefault(); // Impede o envio imediato do formulário
+
+    // Exibe o pop-up
+    document.getElementById("popup").style.display = "block";
+
+    // Simula o envio após 2 segundos (para dar tempo do usuário ver)
+    setTimeout(() => {
+      event.target.submit(); // Agora envia o formulário
+    }, 2000);
+  });
+
+  // Função para fechar o pop-up
+  window.fecharPopup = function () {
+    document.getElementById("popup").style.display = "none";
+  };
+});
+</script>
+
+<!-- Estrutura do pop-up -->
+<div id="popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  background: white; padding: 20px; border: 2px solid #f572cedc; box-shadow: 0px 0px 10px rgba(0,0,0,0.2);">
+  <p>✅ Participação confirmada! Redirecionando...</p>
+  <button onclick="fecharPopup()">Fechar</button>
+</div>
+
   </body>
 </html>

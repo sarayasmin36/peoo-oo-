@@ -1,0 +1,212 @@
+<style>
+
+/* Resetando margens e paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilo do cabeçalho */
+header {
+  background-color: #f572cedc;
+  color: white;
+  width: 100vw; /* Faz o cabeçalho ocupar toda a largura da tela */
+  text-align: left;
+  padding: 10px 20px;
+  margin: 0; /* Remove qualquer margem que possa estar deslocando */
+  box-sizing: border-box; /* Garante que o padding não afete o tamanho total */
+}
+
+
+/* Título principal */
+h1 {
+  margin: 5px;
+  margin-bottom: 5px;
+  font-size: 70px;
+  text-align: center;
+  padding-top: 50px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+/* Título secundário */
+h2 {
+  margin: 5px;
+  margin-bottom: 5px;
+  font-size: 40px;
+  text-align: center;
+  padding-top: 150x;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+/* Estilização da tabela */
+table {
+  width: 80%;
+  max-width: 900px;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+thead {
+  background-color: #f572cedc;
+  color: white;
+  font-weight: bold;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #f572ce25;
+  cursor: pointer;
+}
+
+/* Formulário */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+/* Estilização do select */
+label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+select {
+  padding: 10px;
+  border: 1px solid #000;
+  width: 100%;
+  background-color: #fff;
+  font-size: 16px;
+  font-family: monospace;
+  cursor: pointer;
+  outline: none;
+  transition: 0.3s;
+}
+
+select:hover, select:focus {
+  border-color: #f572cedc;
+  box-shadow: 0px 0px 5px rgba(245, 114, 206, 0.5);
+}
+
+select option {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #fff;
+  color: #000;
+}
+
+/* Botões */
+button {
+  background-color: #f572cedc;
+  color: white;
+  font-family: monospace;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: none;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #f572ce65;
+}
+
+/* Container para os botões */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+</style>
+
+<body>
+    
+<header>
+    <h3> &#10036; Eventario </h3>
+  </header>
+
+<h1>Lista de Participantes</h1>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Evento</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each participantes}}
+      <tr>
+        <td>{{this.id}}</td>
+        <td>{{this.nome}}</td>
+        <td>{{this.email}}</td>
+        <td>{{this.evento_nome}}</td>
+      </tr>
+    {{else}}
+      <tr>
+        <td colspan="4">Nenhum participante encontrado.</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<form action="/certificado" method="GET">
+  <label for="participante"> <h2>Escolha um participante: </h2> </label>
+  <select name="id" id="participante">
+    {{#each participantes}}
+      <option value="{{id}}">{{nome}}</option>
+    {{/each}}
+  </select>
+  <button type="submit">Ver Certificado</button>
+</form>
+
+
+<div class="container">
+      <a href="certificado">
+        <button>Clique aqui para gerar certificados </button>
+      </a>
+
+      <a href="outra-pagina">
+        <button>Clique voltar a página de participante</button>
+      </a>
+    </div>
+
+</body>

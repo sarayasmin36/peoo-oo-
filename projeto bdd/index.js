@@ -29,42 +29,127 @@ conexao.connect((erro) => {
   console.log('Conectado ao BD...');
 });
 
-// Rota para exibir o formulário
-app.get('/', function (req, res) {
-  res.render('formulario'); // Renderiza o formulário
+// Rota para exibir o formulário inicial
+app.get('/', (req, res) => {
+  res.render('formulario');
 });
 
-// Rota para cadastrar o evento
-app.post('/cadastrar', function (req, res) {
-  let nome = req.body.nome;
-  let organizador = req.body.organizador;
-  let data = req.body.data;
-  let lugar = req.body.lugar;
+app.get('/organizador', (req, res) => {
+  res.render('organizador');
+});
 
-  // Inserir dados no banco de dados
-  const sql = 'INSERT INTO eventos (nome, organizador, datas, lugar) VALUES (?, ?, ?, ?)';
-  conexao.query(sql, [nome, organizador, data, lugar], function (erro, resultado) {
-    if (erro) {
-      console.error('Erro ao inserir evento: ', erro);
-      res.status(500).send('Erro ao cadastrar evento');
-    } else {
-      console.log('Evento cadastrado com sucesso!', resultado);
-      res.redirect('/organizador');
-    }
+// ✅ Rota para gerar o certificado de um participante
+app.get('/certificado', (req, res) => {
+  const participanteId = req.query.id;  // Pegando o ID da URL
+
+  if (!participanteId) {
+    return res.status(400).send('ID do participante não informado.');
+  }
+
+  const sql = `
+    SELECT p.nome AS participante_nome, p.email, 
+           e.nome AS evento_nome, e.organizador, 
+           DATE_FORMAT(e.datas, '%d/%m/%y') AS datas_formatada, e.lugar 
+    FROM participantes p
+    JOIN eventos e ON p.evento_id = e.codigo
+    WHERE p.id = ?
+`;
+
+  conexao.query(sql, [participanteId], (err, resultado) => {
+      if (err) {
+          console.error('Erro ao buscar certificado:', err);
+          return res.status(500).send('Erro no servidor');
+      }
+
+      if (resultado.length > 0) {
+          res.render('certificado', { participante: resultado[0] });
+      } else {
+          res.status(404).send('Participante não encontrado.');
+      }
   });
 });
 
-// Rota para exibir os eventos na outra página
-app.get('/outra-pagina', function (req, res) {
-  const sql = 'SELECT * FROM eventos'; // Consulta todos os eventos
-  conexao.query(sql, function (erro, eventos) {
+
+
+
+// ✅ Rota para exibir a lista de participantes
+app.get('/participantes', (req, res) => {
+  const sql = `
+  SELECT participantes.id, participantes.nome, participantes.email, 
+         eventos.nome AS evento_nome, 
+         DATE_FORMAT(eventos.datas, '%d/%m/%y') AS datas_formatada
+  FROM participantes 
+  INNER JOIN eventos ON participantes.evento_id = eventos.codigo
+`;
+
+
+  conexao.query(sql, (erro, participantes) => {
     if (erro) {
-      console.error('Erro ao buscar eventos: ', erro);
+      console.error('❌ Erro ao buscar participantes:', erro.sqlMessage || erro);
+      return res.status(500).send('Erro ao carregar participantes.');
+    }
+
+    console.log('✅ Participantes encontrados:', participantes);
+    res.render('participantes', { participantes });
+  });
+});
+
+// ✅ Rota para cadastrar o evento
+app.post('/cadastrar', (req, res) => {
+  const { nome, organizador, data, lugar } = req.body;
+
+  const sql = 'INSERT INTO eventos (nome, organizador, datas, lugar) VALUES (?, ?, ?, ?)';
+  conexao.query(sql, [nome, organizador, data, lugar], (erro) => {
+    if (erro) {
+      console.error('Erro ao inserir evento:', erro);
+      return res.status(500).send('Erro ao cadastrar evento');
+    }
+    console.log('Evento cadastrado com sucesso!');
+    res.redirect('/organizador');
+  });
+});
+
+// ✅ Rota para inscrever um participante
+app.post('/participar', (req, res) => {
+  console.log('📩 Requisição recebida em /participar');
+
+  let { nome, email, evento_id } = req.body;
+  console.log('📥 Dados recebidos:', { nome, email, evento_id });
+
+  let evento_id_numero = parseInt(evento_id, 10);
+  if (isNaN(evento_id_numero)) {
+    console.error('❌ Erro: ID do evento inválido:', evento_id);
+    return res.status(400).send('Erro: ID do evento inválido');
+  }
+
+  const sql = 'INSERT INTO participantes (nome, email, evento_id) VALUES (?, ?, ?)';
+
+  conexao.query(sql, [nome, email, evento_id_numero], (erro) => {
+    if (erro) {
+      console.error('❌ Erro ao inscrever participante:', erro);
+      return res.status(500).send('Erro ao inscrever participante.');
+    }
+    console.log('✅ Participante inscrito com sucesso!');
+    res.redirect('/participantes');
+  });
+});
+
+// ✅ Rota para exibir os eventos
+app.get('/outra-pagina', (req, res) => {
+  const sql = `
+  SELECT nome, organizador, 
+         DATE_FORMAT(datas, '%d/%m/%y') AS datas_formatada, lugar 
+  FROM eventos
+`;
+
+  conexao.query(sql, (erro, eventos) => {
+    if (erro) {
+      console.error('Erro ao buscar eventos:', erro);
       return res.status(500).send('Erro ao carregar eventos');
     }
 
-    console.log('Eventos encontrados:', eventos); // Aqui, loga os dados retornados do banco
-    res.render('outra-pagina', { eventos: eventos });
+    console.log('Eventos encontrados:', eventos);
+    res.render('outra-pagina', { eventos });
   });
 });
 

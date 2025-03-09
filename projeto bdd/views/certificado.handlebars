@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificado de Participação</title>
+    <style>
+        body {
+            font-family: monospace;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        header {
+  background-color: #f572cedc;
+  color: white;
+  text-align: left;
+  padding: 2px;
+}
+
+        .certificado {
+            width: 800px;
+            height: 600px;
+            background: white;
+            margin: 50px auto;
+            padding: 30px;
+            border: 10px solid #f572ce;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #f572ce;
+            font-size: 28px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .texto {
+            font-size: 30px;
+            line-height: 1.8;
+            color: #333;
+            text-align: justify;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        .destaque {
+            font-size: 34px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .assinatura {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .assinatura p {
+            margin: 5px 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .linha-assinatura {
+            width: 250px;
+            height: 1px;
+            background-color: #000;
+            margin: 10px auto;
+        }
+
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            width: 80px;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #f572ce;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #f572ce90;
+        }
+    </style>
+</head>
+
+<header>
+    <h3> &#10036; Eventario </h3>
+</header>
+<body>
+
+    <div class="certificado">
+        <img src="https://img.freepik.com/vetores-gratis/medalha-premiada-com-fita-vermelha_1284-42828.jpg?t=st=1741495834~exp=1741499434~hmac=cfa1dae31c7b603e54cf0babc752a795edb971647c8309c180c02b2bed1b0af5&w=826" class="logo">
+
+        <h1>Certificado de Participação</h1>
+        <p class="texto">
+            Certificamos que <span class="destaque">{{participante.participante_nome}}</span> participou do evento <span class="destaque">{{participante.evento_nome}}</span>,
+            organizado por <span class="destaque">{{participante.organizador}}</span>, realizado no dia <span class="destaque"><span class="destaque">{{participante.datas_formatada}}</span>
+</span> no <span class="destaque">{{participante.lugar}}</span>.
+        </p>
+
+        <div class="assinatura">
+            <div class="linha-assinatura"></div>
+            <p>{{participante.organizador}}</p>
+            <p>Organizador do Evento</p>
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button class="btn" onclick="window.print()">Imprimir Certificado</button>
+        <a href="/participantes" class="btn">Voltar</a>
+    </div>
+
+</body>
+</html>

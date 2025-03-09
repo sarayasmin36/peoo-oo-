@@ -101,6 +101,37 @@
   button:hover {
     background-color: #f572ce65;
   }
+
+  /* Estilização do pop-up */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-size: 18px;
+}
+
+.popup button {
+  margin-top: 10px;
+  padding: 8px 15px;
+  border: none;
+  background-color: #f572cedc;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.popup button:hover {
+  background-color: #f572ce65;
+}
+
 </style>
 
 <body>
@@ -130,10 +161,40 @@
       </form>
     </section>
 
+    <!-- Pop-Up de Confirmação -->
+<div id="popup" class="popup">
+  <p>✅ Evento cadastrado com sucesso!</p>
+  <button onclick="fecharPopup()">Fechar</button>
+</div>
+
+
     <div class="container">
       <a href="/">
         <button>Clique aqui para voltar a página inicial</button>
       </a>
     </div>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("evento-form").addEventListener("submit", function (event) {
+    event.preventDefault(); // Impede o envio imediato do formulário
+
+    // Exibe o pop-up
+    document.getElementById("popup").style.display = "block";
+
+    // Simula o envio após 2 segundos (para dar tempo do usuário ver)
+    setTimeout(() => {
+      event.target.submit(); // Agora envia o formulário
+    }, 2000);
+  });
+
+  // Função para fechar o pop-up
+  window.fecharPopup = function () {
+    document.getElementById("popup").style.display = "none";
+  };
+});
+</script>
+
+
   </body>
 </html>
