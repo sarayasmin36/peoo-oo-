@@ -48,48 +48,42 @@ app.get('/certificado', (req, res) => {
 
   const sql = `
     SELECT p.nome AS participante_nome, p.email, 
-           e.nome AS evento_nome, e.organizador, 
-           DATE_FORMAT(e.datas, '%d/%m/%y') AS datas_formatada, e.lugar 
+           e.nome AS evento_nome, e.organizador, e.datas, e.lugar 
     FROM participantes p
     JOIN eventos e ON p.evento_id = e.codigo
     WHERE p.id = ?
-`;
+  `;
 
   conexao.query(sql, [participanteId], (err, resultado) => {
-      if (err) {
-          console.error('Erro ao buscar certificado:', err);
-          return res.status(500).send('Erro no servidor');
-      }
+    if (err) {
+      console.error('Erro ao buscar certificado:', err);
+      return res.status(500).send('Erro no servidor');
+    }
 
-      if (resultado.length > 0) {
-          res.render('certificado', { participante: resultado[0] });
-      } else {
-          res.status(404).send('Participante não encontrado.');
-      }
+    if (resultado.length > 0) {
+      res.render('certificado', { participante: resultado[0] });
+    } else {
+      res.status(404).send('Participante não encontrado.');
+    }
   });
 });
-
-
-
 
 // ✅ Rota para exibir a lista de participantes
 app.get('/participantes', (req, res) => {
   const sql = `
-  SELECT participantes.id, participantes.nome, participantes.email, 
-         eventos.nome AS evento_nome, 
-         DATE_FORMAT(eventos.datas, '%d/%m/%y') AS datas_formatada
-  FROM participantes 
-  INNER JOIN eventos ON participantes.evento_id = eventos.codigo
-`;
-
+    SELECT participantes.id, participantes.nome, participantes.email, 
+           eventos.nome AS evento_nome 
+    FROM participantes 
+    INNER JOIN eventos ON participantes.evento_id = eventos.codigo
+  `;
 
   conexao.query(sql, (erro, participantes) => {
     if (erro) {
-      console.error('❌ Erro ao buscar participantes:', erro.sqlMessage || erro);
+      console.error('Erro ao buscar participantes:', erro.sqlMessage || erro);
       return res.status(500).send('Erro ao carregar participantes.');
     }
 
-    console.log('✅ Participantes encontrados:', participantes);
+    console.log('Participantes encontrados:', participantes);
     res.render('participantes', { participantes });
   });
 });
@@ -97,6 +91,10 @@ app.get('/participantes', (req, res) => {
 // ✅ Rota para cadastrar o evento
 app.post('/cadastrar', (req, res) => {
   const { nome, organizador, data, lugar } = req.body;
+
+  if (!nome || !organizador || !data || !lugar) {
+    return res.status(400).send('Todos os campos são obrigatórios.');
+  }
 
   const sql = 'INSERT INTO eventos (nome, organizador, datas, lugar) VALUES (?, ?, ?, ?)';
   conexao.query(sql, [nome, organizador, data, lugar], (erro) => {
@@ -113,10 +111,10 @@ app.post('/cadastrar', (req, res) => {
 app.post('/participar', (req, res) => {
   console.log('📩 Requisição recebida em /participar');
 
-  let { nome, email, evento_id } = req.body;
+  const { nome, email, evento_id } = req.body;
   console.log('📥 Dados recebidos:', { nome, email, evento_id });
 
-  let evento_id_numero = parseInt(evento_id, 10);
+  const evento_id_numero = parseInt(evento_id, 10);
   if (isNaN(evento_id_numero)) {
     console.error('❌ Erro: ID do evento inválido:', evento_id);
     return res.status(400).send('Erro: ID do evento inválido');
@@ -136,12 +134,7 @@ app.post('/participar', (req, res) => {
 
 // ✅ Rota para exibir os eventos
 app.get('/outra-pagina', (req, res) => {
-  const sql = `
-  SELECT nome, organizador, 
-         DATE_FORMAT(datas, '%d/%m/%y') AS datas_formatada, lugar 
-  FROM eventos
-`;
-
+  const sql = 'SELECT * FROM eventos';
   conexao.query(sql, (erro, eventos) => {
     if (erro) {
       console.error('Erro ao buscar eventos:', erro);
