@@ -48,7 +48,8 @@ app.get('/certificado', (req, res) => {
 
   const sql = `
     SELECT p.nome AS participante_nome, p.email, 
-           e.nome AS evento_nome, e.organizador, e.datas, e.lugar 
+           e.nome AS evento_nome, e.organizador, 
+           DATE_FORMAT(e.datas, '%d/%m/%y') AS datas_formatada, e.lugar 
     FROM participantes p
     JOIN eventos e ON p.evento_id = e.codigo
     WHERE p.id = ?
@@ -72,7 +73,8 @@ app.get('/certificado', (req, res) => {
 app.get('/participantes', (req, res) => {
   const sql = `
     SELECT participantes.id, participantes.nome, participantes.email, 
-           eventos.nome AS evento_nome 
+           eventos.nome AS evento_nome,
+           DATE_FORMAT(eventos.datas, '%d/%m/%y') AS datas_formatada
     FROM participantes 
     INNER JOIN eventos ON participantes.evento_id = eventos.codigo
   `;
@@ -134,7 +136,12 @@ app.post('/participar', (req, res) => {
 
 // ✅ Rota para exibir os eventos
 app.get('/outra-pagina', (req, res) => {
-  const sql = 'SELECT * FROM eventos';
+  const sql = `
+  SELECT codigo, nome, organizador, 
+         DATE_FORMAT(datas, '%d/%m/%y') AS datas_formatada, lugar 
+  FROM eventos
+`;
+
   conexao.query(sql, (erro, eventos) => {
     if (erro) {
       console.error('Erro ao buscar eventos:', erro);
