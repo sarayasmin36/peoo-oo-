@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Certificado de Participação</title>
     <style>
         body {
@@ -106,31 +102,40 @@
 </head>
 
 <header>
-    <h3> &#10036; Eventario </h3>
+    <h3> &#10036; Eventario </h3> <!-- Cabeçalho com o nome do sistema e um ícone -->
 </header>
+
 <body>
 
-    <div class="certificado">
+    <div class="certificado"> <!-- Container principal do certificado -->
+        <!-- Logo do certificado -->
         <img src="https://img.freepik.com/vetores-gratis/medalha-premiada-com-fita-vermelha_1284-42828.jpg?t=st=1741495834~exp=1741499434~hmac=cfa1dae31c7b603e54cf0babc752a795edb971647c8309c180c02b2bed1b0af5&w=826" class="logo">
 
-        <h1>Certificado de Participação</h1>
+        <h1>Certificado de Participação</h1> <!-- Título principal do certificado -->
+
+        <!-- Texto descritivo com informações dinâmicas do participante e do evento -->
         <p class="texto">
-            Certificamos que <span class="destaque">{{participante.participante_nome}}</span> participou do evento <span class="destaque">{{participante.evento_nome}}</span>,
-            organizado por <span class="destaque">{{participante.organizador}}</span>, realizado no dia <span class="destaque"><span class="destaque">{{participante.datas_formatada}}</span>
-</span> no <span class="destaque">{{participante.lugar}}</span>.
+            Certificamos que <span class="destaque">{{participante.participante_nome}}</span> <!-- Nome do participante -->
+            participou do evento <span class="destaque">{{participante.evento_nome}}</span>, <!-- Nome do evento -->
+            organizado por <span class="destaque">{{participante.organizador}}</span>, <!-- Nome do organizador -->
+            realizado no dia <span class="destaque">{{participante.datas_formatada}}</span> <!-- Data formatada do evento -->
+            no <span class="destaque">{{participante.lugar}}</span>. <!-- Local do evento -->
         </p>
 
+        <!-- Seção de assinatura -->
         <div class="assinatura">
-            <div class="linha-assinatura"></div>
-            <p>{{participante.organizador}}</p>
-            <p>Organizador do Evento</p>
+            <div class="linha-assinatura"></div> <!-- Linha representando o local da assinatura -->
+            <p>{{participante.organizador}}</p> <!-- Nome do organizador exibido abaixo da linha -->
+            <p>Organizador do Evento</p> <!-- Cargo do organizador -->
         </div>
     </div>
 
+    <!-- Contêiner para os botões de ação -->
     <div class="btn-container">
+        <!-- Botão para imprimir o certificado -->
         <button class="btn" onclick="window.print()">Imprimir Certificado</button>
+        <!-- Link para voltar à página de participantes -->
         <a href="/participantes" class="btn">Voltar</a>
     </div>
 
 </body>
-</html>

@@ -134,62 +134,23 @@
 
 </style>
 
-<header>
+  <header>
     <h3> &#10036; Eventario </h3> <!-- Cabeçalho com o nome do sistema "Eventario" -->
   </header>
+<body>
+  <h1>Editar Participante</h1> <!-- Título da página para editar o participante -->
 
-  <body>
-    <h1>Organize</h1> <!-- Título principal da página "Organize" -->
-    <h2>Cadastre o seu evento!</h2> <!-- Subtítulo explicativo sobre o que o usuário pode fazer -->
+  <form action="/participantes/{{participante.id}}/editar" method="POST"> <!-- Formulário para editar um participante, usando o método POST -->
+    <label for="nome">Nome:</label> <!-- Rótulo para o campo de nome -->
+    <input type="text" id="nome" name="nome" value="{{participante.nome}}" required> <!-- Campo de input para o nome do participante, preenchido com o valor atual -->
 
-    <section>
-      <h5>Adicionar Evento</h5> <!-- Cabeçalho para a seção de adicionar evento -->
-      <form id="evento-form" action="/cadastrar" method="POST"> <!-- Formulário para cadastrar evento -->
-        <label for="evento-nome">Nome do Evento:</label> <!-- Rótulo para o campo de nome do evento -->
-        <input type="text" name="nome" id="evento-nome" required> <!-- Campo de entrada para nome do evento -->
-    
-        <label for="organizador-nome">Organizador:</label> <!-- Rótulo para o campo de organizador -->
-        <input type="text" name="organizador" id="evento-organizador" required> <!-- Campo de entrada para organizador -->
-    
-        <label for="evento-data">Data:</label> <!-- Rótulo para o campo de data -->
-        <input type="date" name="data" id="evento-data" required> <!-- Campo de entrada para data do evento -->
-    
-        <label for="evento-local">Lugar:</label> <!-- Rótulo para o campo de lugar -->
-        <input type="text" name="lugar" id="evento-lugar" required> <!-- Campo de entrada para lugar do evento -->
-        <button type="submit">Adicionar Evento</button> <!-- Botão para enviar o formulário e adicionar evento -->
-      </form>
-    </section>
+    <label for="email">E-mail:</label> <!-- Rótulo para o campo de e-mail -->
+    <input type="email" id="email" name="email" value="{{participante.email}}" required> <!-- Campo de input para o e-mail do participante, preenchido com o valor atual -->
 
-    <!-- Pop-Up de Confirmação -->
-    <div id="popup" class="popup"> <!-- Div do pop-up de confirmação -->
-      <p>✅ Evento cadastrado com sucesso!</p> <!-- Mensagem de confirmação de evento cadastrado -->
-      <button onclick="fecharPopup()">Fechar</button> <!-- Botão para fechar o pop-up -->
-    </div>
+    <button type="submit">Salvar Alterações</button> <!-- Botão para salvar as alterações no participante -->
+  </form>
 
-    <div class="container">
-      <a href="/"> <!-- Link para voltar à página inicial -->
-        <button>Clique aqui para voltar a página inicial</button> <!-- Botão para voltar à página inicial -->
-      </a>
-    </div>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", function () { // Espera o carregamento do conteúdo
-        document.getElementById("evento-form").addEventListener("submit", function (event) { // Adiciona evento ao formulário
-          event.preventDefault(); // Impede o envio imediato do formulário
-
-          // Exibe o pop-up
-          document.getElementById("popup").style.display = "block"; // Exibe o pop-up de confirmação
-
-          // Simula o envio após 2 segundos (para dar tempo do usuário ver)
-          setTimeout(() => {
-            event.target.submit(); // Agora envia o formulário
-          }, 2000); // Tempo de espera antes de enviar o formulário
-        });
-
-        // Função para fechar o pop-up
-        window.fecharPopup = function () {
-          document.getElementById("popup").style.display = "none"; // Fecha o pop-up
-        };
-      });
-    </script>
-  </body>
+  <a href="/participantes"> <!-- Link para retornar à lista de participantes -->
+  <button> Cancelar <!-- Botão de cancelar que redireciona para a lista de participantes -->
+  </button></a>
+</body>

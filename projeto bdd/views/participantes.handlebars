@@ -84,12 +84,9 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f8f9fa;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   width: 80%;
-  max-width: 600px;
+  max-width: 1000px;
   margin: 20px auto;
 }
 
@@ -153,56 +150,111 @@ button:hover {
   margin-top: 20px;
 }
 
+  .botoes-acao {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center; /* Alinha os botões à esquerda */
+  justify-content: center; /* Centraliza os botões verticalmente */
+}
+
+.botoes-acao button {
+  width: 350px; 
+  padding: 6px, 8px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+/* Remove margens e paddings extras */
+.botoes-acao a, .botoes-acao form {
+  margin: 0;
+  padding: 0;
+  width: 100%; 
+}
+
+.btn-editar {
+  background-color: #28a745; /* Verde */
+}
+
+.btn-editar:hover {
+  background-color: #218838;
+}
+
+.btn-excluir {
+  background-color: #dc3545; /* Vermelho */
+}
+
+.btn-excluir:hover {
+  background-color: #c82333;
+}
+
 </style>
 
 <body>
     
 <header>
-    <h3> &#10036; Eventario </h3>
+    <h3> &#10036; Eventario </h3> <!-- Cabeçalho com o nome do sistema -->
   </header>
 
-<h1>Lista de Participantes</h1>
+<h1>Lista de Participantes</h1> <!-- Título principal da página -->
 
 <table border="1">
   <thead>
     <tr>
-      <th>ID</th>
-      <th>Nome</th>
-      <th>Email</th>
-      <th>Evento</th>
+      <th>ID</th> <!-- Coluna para o ID do participante -->
+      <th>Nome</th> <!-- Coluna para o nome do participante -->
+      <th>Email</th> <!-- Coluna para o email do participante -->
+      <th>Evento</th> <!-- Coluna para o evento em que o participante está inscrito -->
+      <th>Ações</th> <!-- Coluna para ações (Editar/Excluir) -->
     </tr>
   </thead>
   <tbody>
     {{#each participantes}}
       <tr>
-        <td>{{this.id}}</td>
-        <td>{{this.nome}}</td>
-        <td>{{this.email}}</td>
-        <td>{{this.evento_nome}}</td>
+        <td>{{this.id}}</td> <!-- Exibe o ID do participante -->
+        <td>{{this.nome}}</td> <!-- Exibe o nome do participante -->
+        <td>{{this.email}}</td> <!-- Exibe o email do participante -->
+        <td>{{this.evento_nome}}</td> <!-- Exibe o nome do evento do participante -->
+        <td class="botoes-acao">
+  <!-- Botão Editar -->
+  <a href="/participantes/{{id}}/editar">
+    <button class="btn-editar">Editar</button> <!-- Link para a página de edição do participante -->
+  </a>
+
+  <!-- Botão Deletar -->
+  <form action="/participantes/{{id}}/excluir" method="POST">
+    <button class="btn-excluir" type="submit" onclick="return confirm('Deseja realmente excluir este participante?')">Excluir</button> <!-- Botão para excluir o participante com confirmação -->
+  </form>
+</td>
       </tr>
+
     {{else}}
       <tr>
-        <td colspan="4">Nenhum participante encontrado.</td>
+        <td colspan="4" class="text-center">Nenhum participante encontrado.</td> <!-- Caso não haja participantes, exibe uma mensagem -->
       </tr>
     {{/each}}
   </tbody>
 </table>
 
 <form action="/certificado" method="GET">
-  <label for="participante"> <h2>Escolha um participante: </h2> </label>
+  <label for="participante"> <h2>Escolha um participante: </h2> </label> <!-- Rótulo para selecionar um participante -->
   <select name="id" id="participante">
     {{#each participantes}}
-      <option value="{{id}}">{{nome}}</option>
+      <option value="{{id}}">{{nome}}</option> <!-- Opções de participantes disponíveis -->
     {{/each}}
   </select>
-  <button type="submit">Ver Certificado</button>
+  <button type="submit">Ver Certificado</button> <!-- Botão para enviar e ver o certificado do participante -->
 </form>
 
 
 <div class="container">
 
       <a href="outra-pagina">
-        <button>Clique voltar a página de participante</button>
+        <button>Clique voltar a página de participante</button> <!-- Link para voltar à página de participantes -->
       </a>
     </div>
 

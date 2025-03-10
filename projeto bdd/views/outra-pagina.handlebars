@@ -92,7 +92,7 @@
     font-size: 20px;
     text-align: center;
     padding-top: 100x;
-    padding-left: 30px;
+    padding-left: 20px;
     padding-right: 30px;
   }
 
@@ -149,107 +149,161 @@
   button:hover {
     background-color: #f572ce65;
   }
+
+.botoes-acao {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start; /* Alinha os botões à esquerda */
+  margin-left: -75px;     /* Move um pouco para a esquerda */
+  justify-content: center; /* Centraliza os botões verticalmente */
+}
+
+.botoes-acao button {
+  width: 350px; 
+  padding: 6px, 8px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+/* Remove margens e paddings extras */
+.botoes-acao a, .botoes-acao form {
+  margin: 0;
+  padding: 0;
+  width: 100%; 
+}
+
+.btn-editar {
+  background-color: #28a745; /* Verde */
+}
+
+.btn-editar:hover {
+  background-color: #218838;
+}
+
+.btn-excluir {
+  background-color: #dc3545; /* Vermelho */
+}
+
+.btn-excluir:hover {
+  background-color: #c82333;
+}
+
+
 </style>
 
-<body>
   <header>
-    <h3> &#10036; Eventario </h3>
+    <h3> &#10036; Eventario </h3> <!-- Cabeçalho com o nome do sistema "Eventario" -->
   </header>
 
-  <body>
-    <h1>Participe</h1>
-    <h2>Participe de eventos!</h2>
-    <h5>Eventos disponíveis:</h5>
+    <h1>Participe</h1> <!-- Título principal da página "Participe" -->
+    <h2>Participe de eventos!</h2> <!-- Subtítulo explicativo sobre o que o usuário pode fazer -->
+    <h5>Eventos disponíveis:</h5> <!-- Título da seção que lista os eventos disponíveis -->
+
     <body>
-  <div class="container2">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Nome do Evento</th>
-          <th scope="col">Organizador</th>
-          <th scope="col">Data</th>
-          <th scope="col">Lugar</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each eventos}}
-          <tr>
-            <td>{{this.codigo}}</td>
-            <td>{{this.nome}}</td>
-            <td>{{this.organizador}}</td>
-            <td>{{datas_formatada}}</td>
-            <td>{{this.lugar}}</td>
-          </tr>
-        {{else}}
-          <tr>
-            <td colspan="5" class="text-center">Nenhum evento encontrado</td>
-          </tr>
-        {{/each}}
-      </tbody>
-    </table>
-  </div>
+      <div class="container2"> <!-- Container que envolve a tabela de eventos -->
+        <table class="table table-striped"> <!-- Tabela para exibir os eventos -->
+          <thead> <!-- Cabeçalho da tabela -->
+            <tr>
+              <th scope="col">ID</th> <!-- Coluna de ID -->
+              <th scope="col">Nome do Evento</th> <!-- Coluna de Nome do Evento -->
+              <th scope="col">Organizador</th> <!-- Coluna de Organizador -->
+              <th scope="col">Data</th> <!-- Coluna de Data -->
+              <th scope="col">Lugar</th> <!-- Coluna de Lugar -->
+              <th scope="col">Ações</th> <!-- Coluna de Ações -->
+            </tr>
+          </thead>
+          <tbody> <!-- Corpo da tabela onde os eventos são listados -->
+            {{#each eventos}} <!-- Loop para exibir todos os eventos -->
+              <tr>
+                <td>{{this.codigo}}</td> <!-- Exibe o código do evento -->
+                <td>{{this.nome}}</td> <!-- Exibe o nome do evento -->
+                <td>{{this.organizador}}</td> <!-- Exibe o organizador do evento -->
+                <td>{{datas_formatada}}</td> <!-- Exibe a data formatada do evento -->
+                <td>{{this.lugar}}</td> <!-- Exibe o lugar do evento -->
+                <td class="botoes-acao"> <!-- Coluna de botões de ação -->
+                  <!-- Botão Editar -->
+                  <a href="/eventos/{{codigo}}/editar">
+                    <button class="btn-editar">Editar</button> <!-- Botão para editar o evento -->
+                  </a>
 
-  <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+                  <!-- Botão Deletar -->
+                  <form action="/eventos/{{codigo}}/excluir" method="POST">
+                    <button class="btn-excluir" type="submit" onclick="return confirm('Deseja realmente excluir este evento?')">Excluir</button> <!-- Botão para excluir o evento -->
+                  </form>
+                </td>
+              </tr>
+            {{else}} <!-- Caso não haja eventos -->
+              <tr>
+                <td colspan="6" class="text-center">Nenhum evento encontrado</td> <!-- Mensagem caso não existam eventos -->
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
 
-    <h2>Inscrever Participante</h2>
-      <form id="participante-form" action="/participar" method="POST">
-    <label for="participante-nome">Nome do Participante:</label>
-    <input type="text" name="nome" id="participante-nome" placeholder="Insira um nome completo" required>
+      <script src="/bootstrap/js/bootstrap.bundle.min.js"></script> <!-- Inclusão do script do Bootstrap -->
 
-    <label for="participante-email">E-mail:</label>
-    <input type="email" name="email" id="participante-email" required>
+      <h2>Inscrever Participante</h2> <!-- Título para a seção de inscrição de participante -->
+      <form id="participante-form" action="/participar" method="POST"> <!-- Formulário para inscrever o participante -->
+        <label for="participante-nome">Nome do Participante:</label> <!-- Rótulo para o campo de nome do participante -->
+        <input type="text" name="nome" id="participante-nome" placeholder="Insira um nome completo" required> <!-- Campo para inserir o nome do participante -->
 
-    <label for="evento-selecionado">Escolha um evento:</label>
-    <select style="width: 1169px;"  id="evento-selecionado" name="evento_id" required>
-      <option value="" disabled selected>Selecione um evento</option>
-      {{#each eventos}}
-        <option value="{{this.codigo}}">{{this.nome}}</option>
-      {{/each}}
-    </select>
+        <label for="participante-email">E-mail:</label> <!-- Rótulo para o campo de e-mail -->
+        <input type="email" name="email" id="participante-email" required> <!-- Campo para inserir o e-mail do participante -->
 
-    <button type="submit">Inscrever</button>
-    </form>
+        <label for="evento-selecionado">Escolha um evento:</label> <!-- Rótulo para o campo de escolha do evento -->
+        <select style="width: 1169px;"  id="evento-selecionado" name="evento_id" required> <!-- Campo de seleção para o evento -->
+          <option value="" disabled selected>Selecione um evento</option> <!-- Opção inicial desabilitada -->
+          {{#each eventos}} <!-- Loop para listar os eventos -->
+            <option value="{{this.codigo}}">{{this.nome}}</option> <!-- Exibe os eventos na lista -->
+          {{/each}}
+        </select>
 
+        <button type="submit">Inscrever</button> <!-- Botão para enviar a inscrição -->
+      </form>
     </section>
 
-    <div class="container1">
-      <a href="/participantes">
-        <button>Clique aqui para ver lista de participantes </button>
+    <div class="container1"> <!-- Container para os botões de navegação -->
+      <a href="/participantes"> <!-- Link para a lista de participantes -->
+        <button>Clique aqui para ver lista de participantes </button> <!-- Botão para ver lista de participantes -->
       </a>
 
-      <a href="/">
-        <button>Clique aqui para voltar a página inicial</button>
+      <a href="/"> <!-- Link para voltar à página inicial -->
+        <button>Clique aqui para voltar a página inicial</button> <!-- Botão para voltar à página inicial -->
       </a>
     </div>
 
     <script>
-document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("participante-form").addEventListener("submit", function (event) {
-    event.preventDefault(); // Impede o envio imediato do formulário
+      document.addEventListener("DOMContentLoaded", function () { // Aguarda o carregamento completo do conteúdo
+        document.getElementById("participante-form").addEventListener("submit", function (event) { // Adiciona evento ao formulário de inscrição
+          event.preventDefault(); // Impede o envio imediato do formulário
 
-    // Exibe o pop-up
-    document.getElementById("popup").style.display = "block";
+          // Exibe o pop-up
+          document.getElementById("popup").style.display = "block"; // Exibe o pop-up de confirmação
 
-    // Simula o envio após 2 segundos (para dar tempo do usuário ver)
-    setTimeout(() => {
-      event.target.submit(); // Agora envia o formulário
-    }, 2000);
-  });
+          // Simula o envio após 2 segundos (para dar tempo do usuário ver)
+          setTimeout(() => {
+            event.target.submit(); // Envia o formulário após o delay
+          }, 2000); // Tempo de espera antes de enviar o formulário
+        });
 
-  // Função para fechar o pop-up
-  window.fecharPopup = function () {
-    document.getElementById("popup").style.display = "none";
-  };
-});
-</script>
+        // Função para fechar o pop-up
+        window.fecharPopup = function () {
+          document.getElementById("popup").style.display = "none"; // Fecha o pop-up
+        };
+      });
+    </script>
 
-<!-- Estrutura do pop-up -->
-<div id="popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  background: white; padding: 20px; border: 2px solid #f572cedc; box-shadow: 0px 0px 10px rgba(0,0,0,0.2);">
-  <p>✅ Participação confirmada! Redirecionando...</p>
-  <button onclick="fecharPopup()">Fechar</button>
-</div>
+    <!-- Estrutura do pop-up -->
+    <div id="popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: white; padding: 20px; border: 2px solid #f572cedc; box-shadow: 0px 0px 10px rgba(0,0,0,0.2);">
+      <p>✅ Participação confirmada! Redirecionando...</p> <!-- Mensagem do pop-up de confirmação -->
+      <button onclick="fecharPopup()">Fechar</button> <!-- Botão para fechar o pop-up -->
+    </div>
 
   </body>
-</html>
